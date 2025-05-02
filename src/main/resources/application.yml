@@ -1,6 +1,36 @@
 spring:
   application:
     name: backend
+  profiles:
+    active:
+      local
+  thymeleaf:
+    cache: false
+  datasource:
+    # PostgreSQL
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/challengedb
+    username: jun
+    password: juny10725
+    hikari:
+      connection-timeout: 5000
+      validation-timeout: 1000
+      maximum-pool-size: 30
+      minimum-idle: 5
+  jpa:
+    properties:
+      hibernate:
+        temp.use_jdbc_metadata_defaults: false
+    open-in-view: false
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: validate
+      # !!주의 : DB 생성시에만 사용한다.
+      #ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 ########################################
 ###  spring doc ??
@@ -19,3 +49,15 @@ springdoc:
     displayRequestDuration: true
     defaultModelsExpandDepth: 3
     defaultModelExpandDepth: 3
+
+server:
+  port: 8082
+  servlet:
+    encoding:
+      charset: UTF-8 # response utf-8 설정
+      force: true
+    #context-path: /svcfw
+    session:
+      timeout: 1440m
+      cookie:
+        http-only: false # for junit test
